@@ -1,4 +1,4 @@
-
+import numpy as np
 #INFO: и вот как будто бы все ясно, а вроде нихуя не ясно
 #TODO: добавить комментарии и описания классов
 #TODO: накидать assert из уважения к offensive programming
@@ -89,11 +89,10 @@ class linear(Differentiable):
 
         # ВНИМАНИЕ! Матрица объекты-признаки X не включает смещение
         #           Вектор единиц для применения смещения нужно присоединить самостоятельно!
+        X_1 = np.ones((X.shape[0],1), dtype = float)
+        X_m = np.concatenate([X_1, X], axis = 1)
 
-        ### YOUR CODE HERE
-        # X_ = ...
-
-        if (self.theta is None):
+        if self.theta is None:
             # Если вектор параметров еще не инициализирован, его следует инициализировать
             # Подсказка: длина вектора параметров может быть получена из размера матрицы X
             # Fx1.T dot NxF.T = 1xN
@@ -102,8 +101,8 @@ class linear(Differentiable):
 
         # Здесь следует собственно применить модель к входным данным
 
-        z = None
-        self.cache = None
+        z = np.matmul(self.theta.T, X_m)
+        self.cache = [self.theta, z]
 
         ### YOUR CODE HERE
         # z = ...
